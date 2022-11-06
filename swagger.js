@@ -9,7 +9,7 @@ const swaggerSpec = {
         },
         servers:[
             {
-                url: "http://localhost:8000"
+                url: "https://api-pdt-production.up.railway.app"
             }
         ]
     },
