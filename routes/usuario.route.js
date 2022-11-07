@@ -53,10 +53,10 @@ const {create} = require('../http/usuario.http')
  *              cedula: 23238384
  *              correo: john@gmail.com
  *              direccion: calle 8, esquina del exito
- *              nro_vuelo: 3434,
- *              cantidad_ticket: 2,
- *              precio: $23.000.00,
- *              origen: BOG,
+ *              nro_vuelo: 3434
+ *              cantidad_ticket: 2
+ *              precio: $23.000.00
+ *              origen: BOG
  *              destino: CUC
  */
 
