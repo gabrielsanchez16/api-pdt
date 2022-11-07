@@ -1,25 +1,36 @@
 const {createUser} = require('../controllers/usuario.controller')
 
 const create = (req,res) => {
-    const data = req.body;
-    if (!data) {
+    const {nombre,cedula,correo,direccion,nro_vuelo,cantidad_ticket,precio,origen,destino} = req.body;
+    if (!nombre && !cedula && !correo && !direccion && !nro_vuelo && !cantidad_ticket && !precio && !origen && !destino ) {
         return res.status(400).json({ message: 'Data Not Found' })
     } else if (
-        !data.nombre ||
-        !data.cedula ||
-        !data.correo ||
-        !data.direccion 
+        !nombre ||
+        !cedula ||
+        !correo ||
+        !direccion ||
+        !nro_vuelo ||
+        !cantidad_ticket ||
+        !precio ||
+        !origen ||
+        !destino 
+
     ) {
         return res.status(400).json({
             message: 'All fiels must be completed', fields: {
                 nombre: 'string',
-                cedula: 'int',
+                cedula: 3423424,
                 correo: 'example@gmail.com',
-                direccion: 'string'
+                direccion: 'string',
+                nro_vuelo: 3434,
+                cantidad_ticket: 2,
+                precio: '$23.000.00',
+                origen: 'BOG',
+                destino: 'CUC'
             },
         });
     } else {
-        const response = createUser(data)
+        const response = createUser(nombre,cedula,correo,direccion,nro_vuelo,cantidad_ticket,precio,origen,destino)
             .then((response) => {
                 res.status(201).json({ 
                     message: `user created succesfuly with id: ${response.id}`,

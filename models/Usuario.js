@@ -27,6 +27,26 @@ const Usuario = db.define('usuarios',{
     direccion: {
         type: DataTypes.STRING,
         allowNull:false
+    },
+    nro_vuelo: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    cantidad_ticket:{
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    precio:{
+        type: DataTypes.STRING,
+        allowNull: false    
+    },
+    origen:{
+        type: DataTypes.STRING,
+        allowNull: false 
+    },
+    destino:{
+        type: DataTypes.STRING,
+        allowNull: false 
     }
 
 })

@@ -1,5 +1,6 @@
 //* Dependencias
 const express = require('express')
+const cors = require('cors')
 const {db} = require('./config/db.js')
 const dotenv = require('dotenv')
 dotenv.config({path: ".env"})
@@ -34,7 +35,11 @@ try {
     console.log(error)
 }
 
+
+const whitelist = ['https://buscador-vuelos.netlify.app/#/registro','http://localhost:5173/#/registro']//acceso a rutas indicadas
 //Routing
+app.use(cors()) //permitiendo acceso
+
 app.use(express.json())
 app.use("/api/v1/usuario", usuarioRouter)
 app.use("/api/v1/doc", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)))
