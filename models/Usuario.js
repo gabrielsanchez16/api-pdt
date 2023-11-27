@@ -9,44 +9,21 @@ const Usuario = db.define('usuarios',{
         defaultValue: uuidv4,
         allowNull: false,
     },
-    nombre:{
+    name_complete:{
         type: DataTypes.STRING,
         allowNull:false,
     },
-    cedula:{
-        type:DataTypes.INTEGER,
+    carrera:{
+        type:DataTypes.STRING,
         allowNull:false
     },
-    correo:{
+    user_name:{
         type: DataTypes.STRING,
-        validate: {
-            isEmail: true
-        },
         allowNull: false
     },
-    direccion: {
+    password:{
         type: DataTypes.STRING,
         allowNull:false
-    },
-    nro_vuelo: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    cantidad_ticket:{
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    precio:{
-        type: DataTypes.STRING,
-        allowNull: false    
-    },
-    origen:{
-        type: DataTypes.STRING,
-        allowNull: false 
-    },
-    destino:{
-        type: DataTypes.STRING,
-        allowNull: false 
     }
 
 })

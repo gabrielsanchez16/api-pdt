@@ -1,40 +1,31 @@
-const {createUser} = require('../controllers/usuario.controller')
+const {createUser,getSession} = require('../controllers/usuario.controller')
 
 const create = (req,res) => {
-    const {nombre,cedula,correo,direccion,nro_vuelo,cantidad_ticket,precio,origen,destino} = req.body;
-    if (!nombre && !cedula && !correo && !direccion && !nro_vuelo && !cantidad_ticket && !precio && !origen && !destino ) {
+    const {name_complete,user_name,carrera,password} = req.body;
+    if (!name_complete && !user_name && !carrera && !password) {
         return res.status(400).json({ message: 'Data Not Found' })
     } else if (
-        !nombre ||
-        !cedula ||
-        !correo ||
-        !direccion ||
-        !nro_vuelo ||
-        !cantidad_ticket ||
-        !precio ||
-        !origen ||
-        !destino 
+        !name_complete ||
+        !user_name||
+        !carrera ||
+        !password 
 
     ) {
         return res.status(400).json({
             message: 'All fiels must be completed', fields: {
-                nombre: 'string',
-                cedula: 3423424,
-                correo: 'example@gmail.com',
-                direccion: 'string',
-                nro_vuelo: 3434,
-                cantidad_ticket: 2,
-                precio: '$23.000.00',
-                origen: 'BOG',
-                destino: 'CUC'
+                name_complete: 'string',
+                user_name: "string",
+                carrera: 'string',
+                password: 'string'
             },
         });
     } else {
-        const response = createUser(nombre,cedula,correo,direccion,nro_vuelo,cantidad_ticket,precio,origen,destino)
+        const response = createUser(name_complete,carrera,user_name,password)
             .then((response) => {
                 res.status(201).json({ 
                     message: `user created succesfuly with id: ${response.id}`,
-                    user: response })
+                    user: response
+                })
             })
             .catch(err=> {
                 console.log(err)
@@ -43,8 +34,38 @@ const create = (req,res) => {
 
 }
 
+const login = (req,res)=>{
+    const {user_name,password} = req.body;
+    if (!user_name  && !password) {
+        return res.status(400).json({ message: 'data not found' })
+    } else if (
+        !user_name||
+        !password 
+
+    ) {
+        return res.status(400).json({
+            message: 'All fiels must be completed', fields: {
+                user_name: "string",
+                password: 'string'
+            },
+        });
+    } else {
+        const response = getSession(user_name,password)
+            .then((response) => {
+                res.status(200).json({ 
+                    message: `user has been successfully logged in`,
+                    user: response
+                })
+            })
+            .catch(err=> {
+                console.log(err)
+            }) 
+    };
+}
+
 
 
 module.exports = {
-    create
+    create,
+    login
 }

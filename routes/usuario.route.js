@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {create} = require('../http/usuario.http')
+const {create,login} = require('../http/usuario.http')
 
 
 
@@ -81,6 +81,8 @@ const {create} = require('../http/usuario.http')
 router.route("/register")
     .post(create)
 
+router.route("/login")
+    .get(login)
 
 
 
