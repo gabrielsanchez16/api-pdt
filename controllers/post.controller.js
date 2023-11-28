@@ -1,24 +1,20 @@
 const {Post} = require("../models/Post.js")
 const {Message} = require("../models/Message.js")
 
-const createPost = async (info,user_id,likes)=>{
+const createPost = async (info,user_id,carrera,user_name,likes)=>{
     const newPost = await Post.create({
         info,
         user_id,
+        carrera,
+        user_name,
         likes
+
     })
     return newPost
 }
 
 const getAllPost = async ()=>{
     const data = await Post.findAll({
-        include: {
-            model: Message,
-            as: "Message",
-            attributes: {
-                exclude: ["createdAt", "updatedAt"],
-            }
-        },
         attributes: {
             exclude: ['createdAt', 'updatedAt']
         }
@@ -38,8 +34,20 @@ const getByUserId = async (user_id) =>{
     return data
 }
 
+const addLike = async (post_id,like) =>{
+    const data = await Post.update({
+        likes:like
+    },{
+        where:{
+            id:post_id
+        }
+    })
+    return data
+}
+
 module.exports = {
     createPost,
     getAllPost,
-    getByUserId
+    getByUserId,
+    addLike
 }

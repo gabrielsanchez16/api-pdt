@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {create,getAll,getByUser} = require('../http/post.http')
+const {create,getAll,getByUser,addLikeHttp} = require('../http/post.http')
 
 
 router.route("/register")
@@ -7,9 +7,12 @@ router.route("/register")
 
 router.route("/")
     .get(getAll)
+    .put(addLikeHttp)
 
 router.route("/byUser")
     .get(getByUser)
+
+
 
 
 

@@ -1,10 +1,11 @@
 const {Message} = require("../models/Message.js")
 
-const createMessage = async (comment,user_id,post_id)=>{
+const createMessage = async (comment,user_id,post_id,user_name)=>{
     const newMessage = await Message.create({
         comment,
         user_id,
-        post_id
+        post_id,
+        user_name
     })
     return newMessage
 }
@@ -29,6 +30,7 @@ const getByPostMessages = async (post_id)=>{
     })
     return data
 }
+
 
 module.exports = {
     createMessage,

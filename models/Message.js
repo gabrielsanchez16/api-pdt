@@ -20,6 +20,10 @@ const Message = db.define("Messages",{
     post_id:{
         type:DataTypes.UUID,
         allowNull:false
+    },
+    user_name:{
+        type:DataTypes.STRING,
+        allowNull:false
     }
 })
 

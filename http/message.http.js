@@ -1,7 +1,7 @@
 const {createMessage,getAllMessage,getByPostMessages} = require("../controllers/message.controller")
 
 const create = (req,res)=>{
-    const {comment,user_id,post_id} = req.body;
+    const {comment,user_id,post_id,user_name} = req.body;
     if (!comment  && !user_id && !post_id) {
         return res.status(400).json({ message: 'data not found' })
     } else if (
@@ -18,7 +18,7 @@ const create = (req,res)=>{
             },
         });
     } else {
-        const response = createMessage(comment,user_id,post_id)
+        const response = createMessage(comment,user_id,post_id,user_name)
             .then((response) => {
                 res.status(201).json({ 
                     message: `comment has been successfully created`,
@@ -47,7 +47,7 @@ const getAll = (req,res)=>{
     };
 
     const getByPost = (req,res)=>{
-        const {post_id} = req.body;
+        const {post_id} = req.query;
         if (!post_id) {
             return res.status(400).json({
                 message: 'All fiels must be completed', fields: {
@@ -73,4 +73,4 @@ module.exports = {
     create,
     getAll,
     getByPost
-}
+} 

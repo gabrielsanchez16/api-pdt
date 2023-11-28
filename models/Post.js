@@ -16,8 +16,16 @@ const Post = db.define("Posts",{
     likes:{
         type:DataTypes.INTEGER,
     },
-    user_id:{
+    user_id:{ 
         type:DataTypes.UUID,
+        allowNull:false
+    },
+    carrera:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    user_name:{
+        type:DataTypes.STRING,
         allowNull:false
     }
 })

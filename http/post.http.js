@@ -1,7 +1,7 @@
-const {createPost,getAllPost,getByUserId} = require("../controllers/post.controller")
+const {createPost,getAllPost,getByUserId,addLike} = require("../controllers/post.controller")
 
 const create = (req,res)=>{
-    const {info,user_id} = req.body;
+    const {info,user_id,user_name,carrera,likes} = req.body;
     if (!info  && !user_id) {
         return res.status(400).json({ message: 'data not found' })
     } else if (
@@ -16,7 +16,7 @@ const create = (req,res)=>{
             },
         });
     } else {
-        const response = createPost(info,user_id)
+        const response = createPost(info,user_id,carrera,user_name,likes)
             .then((response) => {
                 res.status(201).json({ 
                     message: `Post has been successfully logged in`,
@@ -67,9 +67,25 @@ const getAll = (req,res)=>{
         };
     }
 
+    const addLikeHttp = (req,res)=>{
+        const {post_id,like} = req.body;
+        const response = addLike(post_id,like)
+            .then((response) => {
+                res.status(201).json({ 
+                    message: `post have been successfully edited`,
+                    Posts: response
+                })
+            })
+            .catch(err=> {
+                console.log(err)
+            }) 
+    };
+
+
 
 module.exports = {
     create,
     getAll,
-    getByUser
+    getByUser,
+    addLikeHttp
 }

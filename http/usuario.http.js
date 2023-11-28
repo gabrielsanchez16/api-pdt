@@ -35,7 +35,9 @@ const create = (req,res) => {
 }
 
 const login = (req,res)=>{
-    const {user_name,password} = req.body;
+    const {user_name,password} = req.query;
+    
+   
     if (!user_name  && !password) {
         return res.status(400).json({ message: 'data not found' })
     } else if (
