@@ -14,14 +14,26 @@ const createUser = async (name_complete,carrera,user_name,password) => {
     return  newUser
 }
 
-const getSession = async (user_name,password)=>{
+const getSession = async (user_name)=>{
+
     const data = Usuario.findOne({
         where:{
             user_name:user_name,
-            password: password
         },
         attributes: {
             exclude: ['password',"updatedAt","createdAt"]
+        }
+    })
+    return data
+}
+
+
+const editUser = async (user_name,id)=>{
+    const data = await Usuario.update({
+        user_name:user_name
+    },{
+        where:{
+            id:user_id
         }
     })
     return data
@@ -32,5 +44,6 @@ const getSession = async (user_name,password)=>{
 
 module.exports = {
     createUser,
-    getSession
+    getSession,
+    editUser
 }

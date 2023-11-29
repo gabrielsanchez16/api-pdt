@@ -45,7 +45,7 @@ const getAll = (req,res)=>{
     };
 
     const getByUser = (req,res)=>{
-        const {user_id} = req.body;
+        const {user_id} = req.query;
         if (!user_id) {
             return res.status(400).json({
                 message: 'All fiels must be completed', fields: {

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {create,login} = require('../http/usuario.http')
+const {create,login, editUserhttp} = require('../http/usuario.http')
 
 
 
@@ -83,6 +83,10 @@ router.route("/register")
 
 router.route("/login")
     .get(login)
+
+
+router.route("/edit-user")
+    .put(editUserhttp)
 
 
 
