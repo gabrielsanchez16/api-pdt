@@ -1,14 +1,14 @@
 const {Post} = require("../models/Post.js")
 const {Message} = require("../models/Message.js")
 
-const createPost = async (info,user_id,carrera,user_name,likes)=>{
+const createPost = async (info,user_id,carrera,user_name,likes,url_image)=>{
     const newPost = await Post.create({
         info,
         user_id,
         carrera,
         user_name,
-        likes
-
+        likes,
+        url_image
     })
     return newPost
 }

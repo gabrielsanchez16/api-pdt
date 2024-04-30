@@ -17,12 +17,19 @@ const Post = db.define("Posts",{
         type:DataTypes.INTEGER,
     },
     user_id:{ 
-        type:DataTypes.UUID,
-        allowNull:false
+        type: DataTypes.UUID,
+        references: {
+            model: "Users",
+            key: "id"
+        },
+        allowNull: false
     },
     carrera:{
         type:DataTypes.STRING,
         allowNull:false
+    },
+    url_image:{
+        type:DataTypes.STRING
     },
     user_name:{
         type:DataTypes.STRING,

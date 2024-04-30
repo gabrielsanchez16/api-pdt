@@ -2,21 +2,27 @@ const {createPost,getAllPost,getByUserId,addLike} = require("../controllers/post
 
 const create = (req,res)=>{
     const {info,user_id,user_name,carrera,likes} = req.body;
-    if (!info  && !user_id) {
+    const data = req.file;
+
+    if (!info  && !user_id && !user_name && !carrera && !likes ) {
         return res.status(400).json({ message: 'data not found' })
     } else if (
         !info||
-        !user_id 
-
+        !user_id ||
+        !user_name ||
+        !carrera 
     ) {
         return res.status(400).json({
             message: 'All fiels must be completed', fields: {
                 info: "text",
                 user_id: 'string',
+                user_name: "string",
+                carrera: 'string',
+                likes:"number"
             },
         });
     } else {
-        const response = createPost(info,user_id,carrera,user_name,likes)
+        const response = createPost(info,user_id,carrera,user_name,likes,data?.originalname)
             .then((response) => {
                 res.status(201).json({ 
                     message: `Post has been successfully logged in`,

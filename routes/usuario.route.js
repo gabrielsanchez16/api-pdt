@@ -1,6 +1,16 @@
 const router = require('express').Router()
 const {create,login, editUserhttp} = require('../http/usuario.http')
+const multer  = require('multer')
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
+    }
+  })
+const upload = multer({ storage })
 
 
 //Registrar Usuario
@@ -79,7 +89,7 @@ const {create,login, editUserhttp} = require('../http/usuario.http')
  */
 
 router.route("/register")
-    .post(create)
+    .post(upload.single("url_image"),create)
 
 router.route("/login")
     .get(login)

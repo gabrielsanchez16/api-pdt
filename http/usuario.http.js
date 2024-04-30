@@ -4,14 +4,14 @@ const bcrypt = require('bcrypt')
 
 const create = (req, res) => {
     const { name_complete, user_name, carrera, password } = req.body;
-    if (!name_complete && !user_name && !carrera && !password) {
+    const data = req.file;
+    if (!name_complete && !user_name  && !carrera && !password) {
         return res.status(400).json({ message: 'Data Not Found' })
     } else if (
         !name_complete ||
         !user_name ||
         !carrera ||
         !password
-
     ) {
         return res.status(400).json({
             message: 'All fiels must be completed', fields: {
@@ -22,7 +22,7 @@ const create = (req, res) => {
             },
         });
     } else {
-        const response = createUser(name_complete, carrera, user_name, password)
+        const response = createUser(name_complete, carrera, user_name, password, data?.originalname)
             .then((response) => {
                 res.status(201).json({
                     message: `user created succesfuly with id: ${response.id}`,

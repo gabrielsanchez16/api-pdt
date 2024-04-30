@@ -3,15 +3,21 @@ const {Usuario} = require("../models/Usuario.js")
 
 
 
-const createUser = async (name_complete,carrera,user_name,password) => {
+const createUser = async (name_complete,carrera,user_name,password,url_image) => {
 
     const newUser = await Usuario.create({
         name_complete,
         carrera,
         user_name,
-        password
+        password,
+        url_image
     })
-    return  newUser
+    return  {
+        "id":newUser?.id,
+        "name_complete": newUser?.name_complete,
+        "carrera": newUser?.carrera,
+        "user_name": newUser?.user_name,
+      };
 }
 
 const getSession = async (user_name)=>{

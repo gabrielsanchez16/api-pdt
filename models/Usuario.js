@@ -3,7 +3,7 @@ const {db} = require('../config/db.js')
 const bcrypt = require('bcrypt') 
 const {v4: uuidv4} = require("uuid")
 
-const Usuario = db.define('usuarios',{
+const Usuario = db.define('Users',{
     id: {
         primaryKey: true,
         type: DataTypes.UUID,
@@ -21,6 +21,9 @@ const Usuario = db.define('usuarios',{
     user_name:{
         type: DataTypes.STRING,
         allowNull: false
+    },
+    url_image:{
+        type:DataTypes.STRING
     },
     password:{
         type: DataTypes.STRING,
