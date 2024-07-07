@@ -3,7 +3,7 @@ const {db} = require('../config/db.js')
 const bcrypt = require('bcrypt') 
 const {v4: uuidv4} = require("uuid")
 
-const Usuario = db.define('Users',{
+const Users = db.define('user',{
     id: {
         primaryKey: true,
         type: DataTypes.UUID,
@@ -13,7 +13,7 @@ const Usuario = db.define('Users',{
     name_complete:{
         type: DataTypes.STRING,
         allowNull:false,
-    },
+    }, 
     carrera:{
         type:DataTypes.STRING,
         allowNull:false
@@ -39,10 +39,10 @@ const Usuario = db.define('Users',{
 
     //metodo personalizado
 
-    Usuario.prototype.verificarPassword = function(password) {
+    Users.prototype.verificarPassword = function(password) {
         return bcrypt.compareSync(password, this.password)
     }
 
 module.exports ={
-    Usuario
+    Users
 }

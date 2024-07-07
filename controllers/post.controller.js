@@ -1,32 +1,44 @@
 const {Post} = require("../models/Post.js")
 const {Message} = require("../models/Message.js")
+const { Users } = require("../models/Usuario.js")
 
-const createPost = async (info,user_id,carrera,user_name,likes,url_image)=>{
+const createPost = async (info,userId,likes,url_image)=>{
     const newPost = await Post.create({
         info,
-        user_id,
-        carrera,
-        user_name,
+        userId,
         likes,
         url_image
     })
     return newPost
 }
-
+ 
 const getAllPost = async ()=>{
     const data = await Post.findAll({
-        attributes: {
+        include: [{ 
+            model: Users,
+            as:"user",
+            attributes: {
+               exclude:['id','createdAt', 'updatedAt',"password"]
+            }  // Ajusta estos atributos a los que realmente existen en tu modelo Usuarios
+        }],attributes: {
             exclude: ['createdAt', 'updatedAt']
         }
-    })
+    })  
     return data
-}
+} 
 
-const getByUserId = async (user_id) =>{
+const getByUserId = async (userId) =>{
     const data = await Post.findAll({
         where:{
-            user_id:user_id
+            userId:userId
         },
+        include: [{ 
+            model: Users,
+            as:"user",
+            attributes: {
+               exclude:['id','createdAt', 'updatedAt',"password"]
+            }  // Ajusta estos atributos a los que realmente existen en tu modelo Usuarios
+        }],
         attributes: {
             exclude: ['createdAt', 'updatedAt']
         }

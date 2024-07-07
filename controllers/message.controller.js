@@ -1,10 +1,12 @@
 const {Message} = require("../models/Message.js")
+const { Users } = require("../models/Usuario.js")
 
-const createMessage = async (comment,user_id,post_id,user_name)=>{
+
+const createMessage = async (comment,userId,postId,user_name)=>{
     const newMessage = await Message.create({
         comment,
-        user_id,
-        post_id,
+        userId,
+        postId,
         user_name
     })
     return newMessage
@@ -19,17 +21,24 @@ const getAllMessage = async ()=>{
     return data
 }
 
-const getByPostMessages = async (post_id)=>{
+const getByPostMessages = async (postId)=>{
     const data = await Message.findAll({
         where:{
-            post_id:post_id
+            postId:postId
         },
+        include:[{ 
+            model: Users,
+            as:"user",
+            attributes: {
+               exclude:['id','createdAt', 'updatedAt',"password"]
+            }  // Ajusta estos atributos a los que realmente existen en tu modelo Usuarios
+        }],
         attributes:{
             exclude:['createdAt', 'updatedAt']
         }
     })
     return data
-}
+} 
 
 
 module.exports = {

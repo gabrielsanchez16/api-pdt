@@ -12,6 +12,7 @@ const initModels = require("./models/initModels")
 const usuarioRouter = require('./routes/usuario.route.js').router
 const postRouter = require("./routes/post.route.js").router
 const messageRouter = require("./routes/message.route.js").router
+const servicesRouter = require("./routes/services.route.js").router
 
 //* Swagger
 
@@ -46,10 +47,9 @@ app.use(express.json())
 app.use("/api/v1/usuario", usuarioRouter)
 app.use("/api/v1/uploads", express.static("./uploads"))
 app.use("/api/v1/post", postRouter)
+app.use("/api/v1/services", servicesRouter)
 app.use("/api/v1/message", messageRouter)
-app.use("/api/v1/doc", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)))
-
-
+app.use("/api/v1/doc", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec))) 
 
 
 const port = process.env.PORT || 8000

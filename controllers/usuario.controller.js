@@ -1,11 +1,11 @@
-const {Usuario} = require("../models/Usuario.js")
+const {Users} = require("../models/Usuario.js")
 
 
 
 
 const createUser = async (name_complete,carrera,user_name,password,url_image) => {
 
-    const newUser = await Usuario.create({
+    const newUser = await Users.create({
         name_complete,
         carrera,
         user_name,
@@ -20,9 +20,21 @@ const createUser = async (name_complete,carrera,user_name,password,url_image) =>
       };
 }
 
+const getUserById = async (id)=>{
+    const data = Users.findOne({
+        where:{
+            id:id
+        },
+        attributes: {
+            exclude: ['password',"updatedAt","createdAt"]
+        }
+    })
+    return data
+}
+
 const getSession = async (user_name)=>{
 
-    const data = Usuario.findOne({
+    const data = Users.findOne({
         where:{
             user_name:user_name,
         },
@@ -34,12 +46,13 @@ const getSession = async (user_name)=>{
 }
 
 
-const editUser = async (user_name,id)=>{
-    const data = await Usuario.update({
-        user_name:user_name
+const editUser = async (user_name,id,url_image)=>{
+    const data = await Users.update({
+        user_name:user_name,
+        url_image:url_image
     },{
         where:{
-            id:user_id
+            id:id
         }
     })
     return data
@@ -51,5 +64,6 @@ const editUser = async (user_name,id)=>{
 module.exports = {
     createUser,
     getSession,
-    editUser
+    editUser,
+    getUserById
 }

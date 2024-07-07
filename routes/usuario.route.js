@@ -1,15 +1,15 @@
 const router = require('express').Router()
-const {create,login, editUserhttp} = require('../http/usuario.http')
-const multer  = require('multer')
+const { create, login, editUserhttp, getById } = require('../http/usuario.http')
+const multer = require('multer')
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './uploads')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname)
-    }
-  })
+  destination: function (req, file, cb) {
+    cb(null, './uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
 const upload = multer({ storage })
 
 
@@ -21,7 +21,7 @@ const upload = multer({ storage })
  *      User:
  *          type: object
  *          properties:
- *              nombre:
+ *              name_complete:
  *                  type: string
  *                  description: nombre del usuario
  *              cedula:
@@ -30,24 +30,6 @@ const upload = multer({ storage })
  *              correo:
  *                  type: string
  *                  description: correo del usuario ;se requiere que sea de formato email
- *              direccion:
- *                  type: string
- *                  description: direccion del usuario
- *              nro_vuelo:
- *                  type: integer
- *                  description: numero del vuelo; se genera solo al obtener un vuelo correcto
- *              cantidad_ticket:
- *                  type: integer
- *                  description: cantidad de tickets ; se genera solo al obtener un vuelo correcto
- *              precio:
- *                  type: string
- *                  description: precio del vuelo; se genera solo al obtener un vuelo correcto
- *              origen:
- *                  type: string
- *                  description: origen de salida del vuelo; se genera solo al obtener un vuelo correcto
- *              destino:
- *                  type: string
- *                  description: destino de llegada del vuelo; se genera solo al obtener un vuelo correcto
  *          required:
  *              -nombre
  *              -cedula
@@ -89,14 +71,16 @@ const upload = multer({ storage })
  */
 
 router.route("/register")
-    .post(upload.single("url_image"),create)
+  .post(upload.single("url_image"), create)
 
 router.route("/login")
-    .get(login)
+  .get(login)
 
+router.route("/getById")
+  .get(getById)
 
 router.route("/edit-user")
-    .put(editUserhttp)
+  .put(upload.single("url_image"), editUserhttp)
 
 
 
