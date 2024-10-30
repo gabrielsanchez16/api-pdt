@@ -28,6 +28,7 @@ const app = express()
 
 app.use(express.urlencoded({extended:true}))
 
+
 //Conexion a la base de datos
 
 try {
@@ -41,6 +42,7 @@ try {
 
 const whitelist = ['https://buscador-vuelos.netlify.app/#/registro','http://localhost:5173/#/registro']//acceso a rutas indicadas
 //Routing
+
 app.use(cors()) //permitiendo acceso
 
 app.use(express.json())
